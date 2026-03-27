@@ -98,7 +98,7 @@ with st.sidebar:
     st.markdown("17 April 2026")
     st.markdown("---")
     st.markdown(
-        "[ GitHub Repo](https://github.com/EmmanuelAbolade/news2signal-portfolio)",
+        "[ GitHub Repo](https://github.com/EmmanuelAbolade/netguard)",
         unsafe_allow_html=True
     )
 
