@@ -93,12 +93,12 @@ with st.sidebar:
     st.markdown("**Module**")
     st.markdown("Data Science & Machine Learning 2")
     st.markdown("**Lecturer**")
-    st.markdown("Greg Doyle")
+    st.markdown("Ben OShaughnessy")
     st.markdown("**Submission**")
-    st.markdown("17 April 2026")
+    st.markdown("24 April 2026")
     st.markdown("---")
     st.markdown(
-        "[ GitHub Repo](https://github.com/EmmanuelAbolade/news2signal-portfolio)",
+        "[ GitHub Repo](https://github.com/EmmanuelAbolade/netguard)",
         unsafe_allow_html=True
     )
 
@@ -664,10 +664,10 @@ elif "ANN" in page:
             for i, (n, name) in enumerate(zip(layers, layer_names)):
                 x = (i + 0.5) / n_layers
                 colour = colours_arch[min(i, len(colours_arch)-1)]
-                ax.add_patch(plt.FancyBboxPatch(
+                ax.add_patch(plt.Rectangle(
                     (x-0.1, 0.1), 0.18, 0.8,
-                    boxstyle="round,pad=0.02",
-                    facecolor=colour, edgecolor="white", lw=2
+                    facecolor=colour, edgecolor="white", lw=2,
+                    transform=ax.transAxes
                 ))
                 ax.text(x+0.08, 0.5, name, ha="center", va="center",
                         fontsize=8, fontweight="bold",
