@@ -12,7 +12,7 @@
 **Lecturer:** Ben OShaughnessy  
 **Submission:** April 2026
 
----
+
 
 ##  Table of Contents
 
@@ -27,7 +27,7 @@
 - [References](#-references)
 - [Previous Portfolio](#-previous-portfolio)
 
----
+
 
 ##  Overview
 
@@ -45,9 +45,9 @@ The portfolio extends the [News→Signal](https://github.com/EmmanuelAbolade/new
 - **Natural fit for ML** — attack patterns are learnable; each algorithm maps naturally to a specific problem
 - **Academic differentiation** — a distinct theme demonstrating independent thinking and breadth of application
 
----
 
-## 🌐 Live Demo
+
+##  Live Demo
 
 **[https://netguard-ml.streamlit.app](https://netguard-ml.streamlit.app)**
 
@@ -60,9 +60,9 @@ The interactive dashboard includes:
 - **Work log** — all documented decisions per algorithm
 - **GitHub repository** — structure, references, and submission links
 
----
 
-##  Portfolio Projects
+
+##  Projects & Methodology
 
 ### 01 — Email Spam Detection (SVM)
 
@@ -75,13 +75,15 @@ The interactive dashboard includes:
 
 **Problem:** Can a machine learn to automatically distinguish spam from legitimate SMS messages?
 
+**Algorithm Justification:** SVM was chosen for this problem because it is specifically well-suited to high-dimensional feature spaces — exactly what TF-IDF text vectorisation produces. As noted in the course notes: *"SVMs are currently among the best performers for a number of classification tasks ranging from text to genomic data."* The maximum margin decision boundary also provides strong generalisation, which is critical when spam patterns vary widely. Logistic Regression was considered but SVM's margin-based objective is more robust to the noisy, overlapping feature distributions in real SMS data.
+
 **Approach:** TF-IDF vectorisation with bigrams (10,000 features), linear SVM kernel, GridSearchCV over C parameter, F1 score as primary metric to handle 87%/13% class imbalance.
 
 **Key finding:** Linear kernel outperformed RBF — TF-IDF already creates a linearly separable high-dimensional space. Bigrams like "free prize" and "call now" were the strongest spam indicators. URL and phone number tokenisation preserved critical spam signals.
 
 **From scratch:** Sub-gradient descent on soft-margin hinge loss: `min (1/2)||w||² + C·Σmax(0, 1 - yᵢ(wᵀxᵢ + b))`
 
----
+
 
 ### 02 — Network Intrusion Detection (KNN)
 
@@ -94,13 +96,15 @@ The interactive dashboard includes:
 
 **Problem:** Can KNN identify attack patterns by comparing new traffic connections to the most similar known examples?
 
+**Algorithm Justification:** KNN was chosen because network attacks of the same type produce similar traffic signatures — they naturally cluster together in feature space. KNN exploits this directly by classifying new connections based on the most similar known examples. No assumptions are made about the data distribution (non-parametric), which is appropriate for network traffic that does not follow any standard statistical distribution. KNN also handles multi-class classification natively without modification, unlike SVM which requires one-vs-one or one-vs-rest strategies for more than two classes.
+
 **Approach:** Min-Max normalisation (critical — src_bytes ranges 0–1M), GridSearchCV over k, metric, and weighting, stratified 5-fold cross-validation, distance-weighted voting.
 
 **Key finding:** Normalisation was the single most impactful step — accuracy dropped dramatically without it. Distance-weighted voting consistently outperformed uniform. Optimal k balanced the bias-variance tradeoff visible in the k-value analysis plot.
 
 **From scratch:** Euclidean distance computation to all training points, k-nearest selection, majority vote classification.
 
----
+
 
 ### 03 — Network Traffic Clustering (K-Means)
 
@@ -113,13 +117,15 @@ The interactive dashboard includes:
 
 **Problem:** Can an unsupervised algorithm discover attack patterns in network traffic without being told what classes exist?
 
+**Algorithm Justification:** K-Means was chosen to model the real-world scenario where a security analyst encounters unknown traffic with no pre-existing labels. This is the only unsupervised algorithm in the portfolio — intentionally chosen to contrast with the three supervised algorithms and demonstrate understanding of the distinction between learning paradigms. K-Means was selected over hierarchical clustering because its O(nkt) complexity scales to the full 125,973-sample dataset, whereas hierarchical clustering's O(n²) memory requirement makes it impractical at this scale. Using the same NSL-KDD dataset as the KNN project enables a direct comparison between supervised and unsupervised performance.
+
 **Approach:** StandardScaler (robust to outliers), K-Means++ initialisation with 20 restarts, Elbow method + Silhouette score for optimal k, Adjusted Rand Index to evaluate cluster quality against ground truth.
 
 **Key finding:** DoS attacks cluster cleanly due to distinctive traffic patterns. R2L and U2R are harder — they resemble normal traffic in feature space. This directly demonstrates the challenge of unsupervised intrusion detection in practice.
 
 **From scratch:** Full centroid initialisation, assignment, update loop with WCSS convergence tracking.
 
----
+
 
 ### 04 — Cyberattack Classification (ANN)
 
@@ -132,13 +138,15 @@ The interactive dashboard includes:
 
 **Problem:** Network attacks have complex non-linear feature relationships. Can a neural network learn hierarchical representations and outperform simpler models?
 
+**Algorithm Justification:** ANN was chosen as the final algorithm because it addresses the fundamental limitation of the previous three models — their inability to learn complex non-linear feature interactions automatically. SVM with a linear kernel assumes linear separability. KNN relies on raw distance in the original feature space. K-Means assumes spherical clusters. An ANN with hidden layers can learn hierarchical representations: lower layers detect simple patterns (individual feature combinations), higher layers detect complex attack signatures (combinations of those patterns). This is particularly important for minority classes like R2L and U2R where the distinguishing features are subtle combinations rather than individual signals. The same NSL-KDD dataset is used for the third consecutive project, enabling a definitive four-way algorithm comparison.
+
 **Approach:** One-hot encoding for categorical features, architecture Input→128 (ReLU)→64 (ReLU)→5 (Softmax), Adam optimiser with early stopping, architecture comparison across depths and activation functions.
 
 **Key finding:** ANN outperformed all other algorithms on complex minority classes (R2L, U2R). Two hidden layers confirmed optimal — directly aligned with course notes: *"Two hidden layers are sufficient to solve many problems."* ReLU outperformed Tanh for NSL-KDD's sparse zero-heavy features.
 
 **From scratch:** Complete backpropagation — forward pass, cross-entropy loss, chain rule gradient computation, gradient descent weight update. Weights initialised between -0.5 and +0.5 as per course notes.
 
----
+
 
 ##  Datasets
 
@@ -151,7 +159,7 @@ The interactive dashboard includes:
 
 **Datasets are downloaded automatically** by the notebooks on first run — no manual download required.
 
----
+
 
 ##  Repository Structure
 
@@ -186,7 +194,7 @@ Each notebook follows the same structure:
 6. **Work Log** — Documented decisions, adjustments, and analysis
 7. **References** — All sources correctly cited
 
----
+
 
 ##  Getting Started
 
@@ -226,7 +234,7 @@ streamlit run app.py
 
 Opens at `http://localhost:8501`
 
----
+
 
 ##  Results Summary
 
@@ -237,7 +245,7 @@ Opens at `http://localhost:8501`
 | K-Means (unsupervised) | NSL-KDD | ARI scored | Discovers unknown attack groups |
 | ANN (MLP 128→64, ReLU) | NSL-KDD | ~95% | Complex non-linear attack signatures |
 
----
+
 
 ##  Technologies Used
 
@@ -253,7 +261,7 @@ Opens at `http://localhost:8501`
 | Deployment | Streamlit Cloud |
 | Version Control | Git, GitHub |
 
----
+
 
 ##  References
 
