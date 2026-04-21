@@ -25,6 +25,7 @@
 - [Results Summary](#-results-summary)
 - [Technologies Used](#-technologies-used)
 - [References](#-references)
+- [Glossary of Terms & Abbreviations](#-Glossary of Terms & Abbreviations)
 - [Previous Portfolio](#-previous-portfolio)
 
 
@@ -47,7 +48,7 @@ The portfolio extends the [News→Signal](https://github.com/EmmanuelAbolade/new
 
 
 
-##  Live Demo
+## 🌐 Live Demo
 
 **[https://netguard-ml.streamlit.app](https://netguard-ml.streamlit.app)**
 
@@ -276,7 +277,35 @@ Opens at `http://localhost:8501`
 - Pedregosa, F. et al. (2011). *Scikit-learn: Machine Learning in Python*. JMLR 12, 2825–2830.
 - Canadian Institute for Cybersecurity. *NSL-KDD Dataset*. https://www.unb.ca/cic/datasets/nsl.html
 
----
+
+
+
+
+
+##  Glossary of Terms & Abbreviations
+
+| Abbreviation | Full Name | Description |
+|---|---|---|
+| **SVM** | Support Vector Machine | Supervised learning algorithm that finds the optimal hyperplane separating two classes with the maximum possible margin. Only the support vectors — training examples closest to the boundary — define the decision boundary. |
+| **KNN** | K-Nearest Neighbours | Supervised, non-parametric, lazy learning algorithm. Classifies a new point by majority vote among its k closest training examples, measured by Euclidean distance. No model is built at training time. |
+| **K-Means** | K-Means Clustering | Unsupervised algorithm that partitions data into k clusters by iteratively assigning points to their nearest centroid and recomputing centroids as the cluster mean. Minimises WCSS. |
+| **ANN** | Artificial Neural Network | Computational model inspired by the brain, consisting of interconnected layers of neurons. Learns by adjusting connection weights through backpropagation to minimise a loss function. |
+| **MLP** | Multi-Layer Perceptron | A specific type of ANN with one or more hidden layers between input and output. The architecture used in scikit-learn's MLPClassifier and in this portfolio's ANN notebook. |
+| **TF-IDF** | Term Frequency-Inverse Document Frequency | Text vectorisation method that weights words by how often they appear in a document (TF) penalised by how commonly they appear across all documents (IDF). Distinctive words score highest. |
+| **ReLU** | Rectified Linear Unit | Activation function defined as max(0, z). Returns positive values unchanged and sets negative values to zero. Default choice for hidden layers in modern ANNs — avoids vanishing gradients and produces sparse activations. |
+| **NSL-KDD** | Network Security Lab — Knowledge Discovery in Databases | Network intrusion detection benchmark dataset from the University of New Brunswick. An improved version of KDD Cup 1999, with duplicate records removed to prevent artificially inflated accuracy. |
+| **UCI** | University of California Irvine | UCI Machine Learning Repository — one of the oldest and most widely used public collections of datasets for machine learning research. Source of the SMS Spam Collection used in this portfolio. |
+| **DoS** | Denial of Service | Cyberattack that floods a network or server with traffic, preventing legitimate users from accessing it. The largest attack class in NSL-KDD (45,927 samples). Examples: neptune, smurf, teardrop. |
+| **R2L** | Remote to Local | Attack where an unauthorised remote user gains local access by exploiting network vulnerabilities. Rare in NSL-KDD (995 samples). Examples: guess_passwd, ftp_write, imap. |
+| **U2R** | User to Root | Attack where a user with normal access escalates privileges to administrator (root) level. Rarest class in NSL-KDD (52 samples). Examples: buffer_overflow, rootkit, loadmodule. |
+| **WCSS** | Within-Cluster Sum of Squares | The objective function K-Means minimises. Measures total squared distance from each point to its assigned centroid. Also called inertia. Used in the Elbow Method to select optimal k. |
+| **ARI** | Adjusted Rand Index | Measures similarity between discovered clusters and true labels, adjusted for chance. Ranges from -1 to +1. Used to evaluate how well K-Means recovered ground truth structure without using labels during training. |
+| **F1 Score** | F1 Score | Harmonic mean of precision and recall. Used as the primary metric for the SVM spam classifier to handle the 87%/13% class imbalance — accuracy alone would be misleading. |
+| **ROC-AUC** | Receiver Operating Characteristic — Area Under the Curve | ROC plots True Positive Rate vs False Positive Rate across all thresholds. AUC summarises the curve as a single number (0–1). AUC = 1.0 is perfect; AUC = 0.5 is random. |
+| **PCA** | Principal Component Analysis | Dimensionality reduction technique projecting high-dimensional data onto a lower-dimensional space preserving maximum variance. Used to visualise 41-dimensional NSL-KDD data in 2D for decision boundary plots. |
+| **CV** | Cross-Validation | Model evaluation technique that splits data into k folds, training on k-1 and testing on 1, repeated k times. Stratified CV preserves class proportions in each fold — essential for imbalanced datasets like NSL-KDD. |
+| **IBL** | Instance-Based Learning | Family of algorithms that store training instances directly and use them at prediction time. KNN is the most well-known example. Also called lazy learning, memory-based reasoning, or case-based reasoning. |
+| **CA** | Continuous Assessment | The assessment format for this module — worth 60% of the final grade, submitted as a portfolio rather than a single exam. |
 
 ##  Previous Portfolio
 
